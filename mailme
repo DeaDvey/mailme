@@ -1,6 +1,14 @@
-echo "fetching https://$1"
-sitehtml=$(curl -s https://$1)
+if [ -z "$1" ]; then
+    echo "Input a webpage or ask for help with --help"
+elif [ $1 = "--help" ]; then
+    echo "Format: mailme [url] [emailaddress]"
+elif [ -z "$2" ]; then
+    echo "Input an email address or ask for help with --help"
+else
+		echo "fetching https://$1"
+		sitehtml=$(curl -s https://$1)
 
-echo $sitehtml | mutt -s "Website: https://$1" -e "set content_type=text/html" "$2"
+		echo $sitehtml | mutt -s "Website: https://$1" -e "set content_type=text/html" "$2"
 
-echo "Email sent!"
+		echo "Email sent to $2!"
+fi
