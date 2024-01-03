@@ -1,0 +1,6 @@
+echo "fetching https://$1"
+sitehtml=$(curl -s https://$1)
+
+echo $sitehtml | mutt -s "Website: https://$1" -e "set content_type=text/html" "$2"
+
+echo "Email sent!"
